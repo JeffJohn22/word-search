@@ -4,28 +4,15 @@ var click = { "startPos": "", "endPos": ""
 var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
 			   "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-var words = [ { "word": "SAPIANS", "direction": "N", "start": 254 },
-			  { "word": "SLIMS", "direction": "SE", "start": 2 },
-			  { "word": "APPRECIATE", "direction": "NE", "start": 323 },
-			  { "word": "COFFEE", "direction": "S", "start": 39 },
-			  { "word": "MASTERY", "direction": "NW", "start": 268 },
-			  { "word": "ART", "direction": "E", "start": 132 },
-			  { "word": "SECURE", "direction": "E", "start": 49 },
-			  { "word": "PEOPLE", "direction": "S", "start": 137},
-			  { "word": "SOOTHING", "direction": "W", "start": 357 },
-			  { "word": "FUN", "direction": "E", "start": 383 },
-			  { "word": "DARING", "direction": "S", "start": 120 },
-			  { "word": "CREDITS", "direction": "N", "start": 395 },
-			  { "word": "NEWS", "direction": "NW", "start": 340 },
-			  { "word": "GRIND", "direction": "W", "start": 98 },
-			  { "word": "BREW", "direction": "N", "start": 381 },
-			  { "word": "PLUGINS", "direction": "N", "start": 145 },
-			  { "word": "JAVA", "direction": "E", "start": 6 },
-			  { "word": "PYTHON", "direction": "NE", "start": 204 },
-			  { "word": "FUN", "direction": "NW", "start": 266},
-			  { "word": "TRIAL", "direction": "S", "start": 41 },
+// Updated words array with new words and arbitrary directions and start positions
+var words = [ { "word": "SLIMS", "direction": "N", "start": 254 },
+			  { "word": "SAPIANS", "direction": "SE", "start": 2 },
+			  { "word": "COFFEE", "direction": "NE", "start": 323 },
+			  { "word": "NEWS", "direction": "S", "start": 39 },
+			  { "word": "FUN", "direction": "NW", "start": 268 },
+			  { "word": "PEOPLE", "direction": "E", "start": 132 },
+			  { "word": "APPRECIATE", "direction": "E", "start": 49 }
 			];
-
 
 // Prepare the wordsearch with random letters and word layout
 $(document).ready(function() {
