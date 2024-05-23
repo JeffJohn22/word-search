@@ -7,9 +7,10 @@
 
 html {
 	height: 100%;
-	background: #999999;
-	background: linear-gradient(bottom, #fff 70%, #bbb 100%);
+	background: #1e90ff; /* Updated to a dynamic gradient background */
+	background: linear-gradient(to bottom, #1e90ff, #00bfff, #87ceeb); /* Multiple colors for depth */
 	background-size: cover;
+	font-family: 'Roboto', sans-serif; /* Modern font */
 }
 
 #main {
@@ -24,29 +25,30 @@ html {
 	width: 820px;
 	height: auto;
 	border: 10px solid #9dd2ea;
-	border-radius: 3px;
+	border-radius: 15px; /* Increased border radius for more softness */
 
-	box-shadow: 0 10px 6px -6px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0 10px 6px -6px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 10px 6px -6px rgba(0,0,0,0.5);
+	box-shadow: 0 15px 20px rgba(0,0,0,0.6); /* Enhanced box shadow */
 }
 
 .letters {
-	font-size: 1.3em;
-	font-family: 'Fresca', serif;
+	font-size: 1.5em; /* Increased font size */
+	font-family: 'Arial', sans-serif; /* More modern font */
 }
 
 .letters span {
 	float:left;
 	width: 40px;
 	height: 40px;
-
-	background: white;
+	background: #fff;
 	line-height: 43px;
 	text-align: center;
-
 	font-size: 1em;
+	transition: all 0.3s ease; /* Smooth hover effect */
+}
 
+.letters span:hover {
+	transform: scale(1.1); /* Scale up on hover */
+	background: #f0f0f0; /* Lighter background on hover */
 }
 
 .right {
@@ -54,29 +56,29 @@ html {
 	width: 220px;
 	height: auto;
 	border: 10px solid #9dd2ea;
-	border-radius: 3px;
+	border-radius: 15px; /* Increased border radius for more softness */
 
-	box-shadow: 0 10px 6px -6px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0 10px 6px -6px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 10px 6px -6px rgba(0,0,0,0.5);
+	box-shadow: 0 15px 20px rgba(0,0,0,0.6); /* Enhanced box shadow */
 }
 
 .words {
-	font-size: 1.3em;
-	font-family: 'Fresca', serif;
-
+	font-size: 1.5em; /* Increased font size */
+	font-family: 'Arial', sans-serif; /* More modern font */
 }
 
 .words span {
 	float:left;
 	width: 200px;
 	height: 40px;
-
-	background: white;
+	background: #fff;
 	line-height: 45px;
 	text-align: center;
+	transition: all 0.3s ease; /* Smooth hover effect */
+}
 
-
+.words span:hover {
+	transform: translateY(-5px); /* Move up on hover */
+	background: #f0f0f0; /* Lighter background on hover */
 }
 
 .blur {
@@ -86,11 +88,4 @@ html {
 
 .strike {
   text-decoration: line-through;
-}
-
-canvas {
-	position: absolute;
-	display: block;
-	float: left;
-
 }
