@@ -31,8 +31,45 @@ function calculateStartPositions(words, gridSize) {
   for (var i = 0; i < words.length; i++) {
     var wordLength = words[i].word.length;
     var maxStartPos = gridSize - wordLength;
-    words[i].start = Math.floor(Math.random() * maxStartPos);
+
+    var validStart = false;
+    while (!validStart) {
+      words[i].start = Math.floor(Math.random() * gridSize);
+      validStart = validatePosition(words[i], gridSize);
+    }
   }
+}
+
+function validatePosition(word, gridSize) {
+  var wordLength = word.word.length;
+  var start = word.start;
+  var direction = word.direction;
+
+  if (direction === "N") {
+    return (start >= (wordLength - 1) * 20);
+  }
+  if (direction === "NE") {
+    return (start % 20 + wordLength <= 20) && (start >= (wordLength - 1) * 19);
+  }
+  if (direction === "E") {
+    return (start % 20 + wordLength <= 20);
+  }
+  if (direction === "SE") {
+    return (start % 20 + wordLength <= 20) && (start <= gridSize - (wordLength * 21));
+  }
+  if (direction === "S") {
+    return (start <= gridSize - (wordLength * 20));
+  }
+  if (direction === "SW") {
+    return (start % 20 >= (wordLength - 1)) && (start <= gridSize - (wordLength * 19));
+  }
+  if (direction === "W") {
+    return (start % 20 >= (wordLength - 1));
+  }
+  if (direction === "NW") {
+    return (start % 20 >= (wordLength - 1)) && (start >= (wordLength - 1) * 21);
+  }
+  return false;
 }
 
 // Calculate the start positions for the words
@@ -127,74 +164,75 @@ $(document).ready(function () {
       // Used for Firefox
       sX = e.offsetX || e.clientX - $(e.target).offset().left;
       sY = e.offsetY || e.clientY - $(e.target).offset().top;
-      // adjust the center of the arc 
-      sX -= (sX % 20);
-      sY -= (sY % 20);
-      if (!(sX % 40)) sX += 20;
-      if (!(sY % 40)) sY += 20;
+
+      // Used for Chrome
+      sX = e.clientX - $(e.target).offset().left;
+      sY = e.clientY - $(e.target).offset().top;
 
       setPos(sX, sY, "start");
-      draw(e.type);
+
+      drawCircle("mousedown");
     }
-    else if (e.type == "mousemove") {
+    if (e.type == "mouseup") {
+      setCanvas("c");
+      isMouseDown = false;
+
+      // Used for Firefox
+      eX = e.offsetX || e.clientX - $(e.target).offset().left;
+      eY = e.offsetY || e.clientY - $(e.target).offset().top;
+
+      // Used for Chrome
+      eX = e.clientX - $(e.target).offset().left;
+      eY = e.clientY - $(e.target).offset().top;
+
+      setPos(eX, eY, "end");
+
+      drawCircle("mouseup");
+
+      // checks if the word highlighted is a word in the array list
+      if (checkWord()) scratchWord();
+      if (isEndOfGame()) alert("Game over!");
+    }
+    if (e.type == "mousemove") {
       if (isMouseDown) {
-        mouseMoved = true;
+        setCanvas("a");
+
+        // Used for Firefox
         eX = e.offsetX || e.clientX - $(e.target).offset().left;
         eY = e.offsetY || e.clientY - $(e.target).offset().top;
-        draw(e.type);
+
+        // Used for Chrome
+        eX = e.clientX - $(e.target).offset().left;
+        eY = e.clientY - $(e.target).offset().top;
+
+        drawCircle("mousemove");
       }
     }
-    else if (e.type == "mouseup") {
-      isMouseDown = false;
-      ctx.clearRect(0, 0, width, height);
-      if (mouseMoved) {
-        mouseMoved = false;
-
-        eX -= eX % 20;
-        eY -= eY % 20;
-        if (!(eX % 40)) eX += 20;
-        if (!(eY % 40)) eY += 20;
-
-        // draw the last line and clear the canvas to check and see if its the 
-        // correct word
-        draw(e.type);
-        ctx.clearRect(0, 0, width, height);
-        // if a correct word has been highlighted change the canvas to 
-        // the permanent one and redraw the arcs and lines. Then scratch the 
-        // word on the right.
-        if (checkWord()) {
-          setCanvas("a");
-          draw(e.type);
-          scratchWord();
-          // Check if the game is over
-          if (isEndOfGame()) {
-            alert("Good job!");
-          }
-        }
+    if (e.type == "mouseleave") {
+      if (isMouseDown) {
+        setCanvas("c");
+        drawCircle("mouseleave");
       }
-    }
-    else if (e.type == "mouseleave") {
-      isMouseDown = false;
-      draw(e.type);
     }
   });
 })
 
-// This function is called when lines need to be drawn on the game
-function draw(f) {
-  // used to draw an arc. takes in two numbers that represent the beginning
-  // and end of the arc
-  function drawArc(xArc, yArc, num1, num2) {
-    ctx.lineWidth = 2;
+// draws the circles and lines
+function drawCircle(f) {
+  // the arc function does not draw a full circle so the difference
+  // is calculated to complete the circle
+  function drawArc(x, y, s, e) {
     ctx.beginPath();
-    ctx.arc(xArc, yArc, r, num1 * Math.PI, num2 * Math.PI);
+    ctx.arc(x, y, r, Math.PI * s, Math.PI * e, false);
+    ctx.lineWidth = 4;
     ctx.strokeStyle = strokeColor;
     ctx.stroke();
   }
 
-  // used to draw the two lines around letters
   function drawLines(mX1, mY1, lX1, lY1, mX2, mY2, lX2, lY2) {
     ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = strokeColor;
     ctx.moveTo(mX1, mY1);
     ctx.lineTo(lX1, lY1);
     ctx.moveTo(mX2, mY2);
