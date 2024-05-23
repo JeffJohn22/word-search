@@ -1,36 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>SAP - Word Seach</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
 <html lang="en">
 <head>
-  	<meta charset="utf-8">
-  	<title>Start Grinding</title>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fresca">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Happy+Monkey">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Search Game</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .letters {
+      width: 400px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .letters span {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ccc;
+      font-family: Arial, sans-serif;
+    }
+
+    .words {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-	<div id="main">
-		<div class="left">
-      <div class="letters">
-        <canvas id="a" width="800" height="800"></canvas>
-        <canvas id="c" width="800" height="800"></canvas>
-      </div>
-    </div>
-    <div class="right">
-      <div class="words">
-      </div>
-  	</div>
-  </div>
-</body>
-</html>
+
+<div id="menu">
+  <button id="start-button">Start Game</button>
+</div>
+
+<div id="main" style="display:none;">
+  <div class="letters"></div>
+  <div class="words"></div>
+</div>
+
+<canvas id="c" width="400" height="400"></canvas>
+<canvas id="a" width="400" height="400"></canvas>
 <!-- partial -->
   <script  src="./script.js"></script>
 
